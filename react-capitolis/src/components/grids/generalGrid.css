@@ -28,16 +28,23 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
-  border: solid thin;
-  width: -webkit-fill-available;
+  border: solid thin #49b3e1;
   padding: 5px;
   height: 27px;
   width: 200px;
+  font-weight: bold;
+  margin: 1px;
+}
+
+.value-row {
+  color: white;
 }
 
 .grid-header {
-  background-color: lightblue;
+  background-color: #142f6f;
   font-weight: bold;
+  color: #49b3e1;
+  font-size: x-large;
 }
 
 .selected {

@@ -30,7 +30,14 @@ export default class GeneralGrid extends React.PureComponent {
         {rows.length > 0 &&
           rows.map((position, index) => {
             const { id } = position;
-            return <GridRow key={id} headers={headers} rowData={rows[index]} />;
+            return (
+              <GridRow
+                className="value-row"
+                key={id}
+                headers={headers}
+                rowData={rows[index]}
+              />
+            );
           })}
       </div>
     );

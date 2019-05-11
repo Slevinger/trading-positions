@@ -34,7 +34,7 @@ export default class GridToolBox extends React.PureComponent {
           className="icon"
           title="Export data to CSV"
           onClick={this.exportData.bind(this)}
-          src="https://img.icons8.com/metro/52/000000/export.png"
+          src="https://img.icons8.com/ios/50/000000/export-csv-filled.png"
         />
       </div>
     );

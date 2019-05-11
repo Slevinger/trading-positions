@@ -7,8 +7,12 @@
 .icon {
   height: 20px;
   margin: 5px;
+  color: white;
+  -webkit-filter: invert(1);
+  filter: invert(1);
 }
 .icon:hover {
   cursor: pointer;
-  background-color: darkgray;
+  -webkit-filter: invert(0.5);
+  filter: invert(0.5);
 }
