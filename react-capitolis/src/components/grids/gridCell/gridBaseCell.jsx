@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class FinUnitGridBaseCell extends React.PureComponent {
+export default class GridBaseCell extends React.PureComponent {
   constructor(props) {
     super(props);
   }

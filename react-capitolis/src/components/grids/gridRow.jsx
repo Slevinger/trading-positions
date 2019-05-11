@@ -1,10 +1,10 @@
 import React from "react";
-import FinUnitGridBaseCell from "./finUnitGridCell/finUnitGridBaseCell";
+import GridBaseCell from "./gridCell/gridBaseCell";
 
 // import "./finUnitRow.css";
 // todo: import the grid defenitions order/captions/filters
 
-export default class FinUnitRow extends React.PureComponent {
+export default class GridRow extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ export default class FinUnitRow extends React.PureComponent {
         {headers.map((colSettings, index) => {
           console.log(colSettings);
           return (
-            <FinUnitGridBaseCell
+            <GridBaseCell
               key={index}
               cellValue={rowData[colSettings.fieldName]}
             />
