@@ -1,0 +1,47 @@
+.financial-units-grid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fin-unit.grid-row {
+  font-size: small;
+}
+
+.grid-row {
+  flex-direction: row;
+  display: flex;
+  flex: 1;
+  width: 80%;
+  justify-content: center;
+}
+
+.grid-row:hover {
+  background-color: darkblue;
+  color: white;
+  cursor: pointer;
+}
+
+.grid-cell {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border: solid thin;
+  width: -webkit-fill-available;
+  padding: 5px;
+  height: 27px;
+  max-width: 200px;
+}
+
+.grid-header {
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+}
+
+.selected {
+  background-color: darkblue;
+  color: white;
+}
