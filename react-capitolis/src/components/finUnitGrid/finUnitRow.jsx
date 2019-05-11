@@ -21,14 +21,14 @@ export default class FinUnitRow extends React.PureComponent {
   }
 
   render() {
-    const { rowData } = this.props;
+    const { rowData, className } = this.props;
 
     return (
       <div
         onClick={this.onClick}
         className={`fin-unit grid-row ${
           this.state.expanded ? " selected" : ""
-        }`}
+        } ${className}`}
       >
         {headers.map((colSettings, index) => {
           console.log(colSettings);

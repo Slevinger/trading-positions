@@ -17,7 +17,7 @@
   justify-content: center;
 }
 
-.grid-row:hover {
+.grid-row:hover:not(.grid-header) {
   background-color: darkblue;
   color: white;
   cursor: pointer;
@@ -35,8 +35,7 @@
 }
 
 .grid-header {
-  background-color: blue;
-  color: white;
+  background-color: lightblue;
   font-weight: bold;
 }
 

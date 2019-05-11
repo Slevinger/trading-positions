@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
 import FinUnitRow from "./finUnitRow";
+import { headers } from "./grid-config";
+
 import "./finUnitGrid.css";
 
 export default class FinUnitsGrid extends React.PureComponent {
@@ -31,12 +33,21 @@ export default class FinUnitsGrid extends React.PureComponent {
     this.setState({ rows });
   }
 
+  renderHeadersNames() {
+    const headersRowData = headers.reduce((acc, headerSettings) => {
+      acc[headerSettings.fieldName] = headerSettings.caption;
+      return acc;
+    }, {});
+    return <FinUnitRow className="grid-header" rowData={headersRowData} />;
+  }
+
   render() {
     const { rows } = this.state;
     console.log("positions", rows);
 
     return (
       <div className="financial-units-grid">
+        {this.renderHeadersNames()}
         {rows.map((position, index) => {
           const { id } = position;
           return <FinUnitRow key={id} rowData={rows[index]} />;

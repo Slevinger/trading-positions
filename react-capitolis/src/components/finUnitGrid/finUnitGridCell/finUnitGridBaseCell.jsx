@@ -8,7 +8,7 @@ export default class FinUnitGridBaseCell extends React.PureComponent {
   render() {
     return (
       <div className="grid-cell">
-        <p>{JSON.stringify(this.props.cellValue)}</p>
+        <p>{this.props.cellValue}</p>
       </div>
     );
   }
