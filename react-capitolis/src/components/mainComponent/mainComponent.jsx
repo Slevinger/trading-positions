@@ -9,16 +9,22 @@ import "./mainComponent.css";
 export default class MainComponent extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.setPositionsFromData = this.setPositionsFromData.bind(this);
+    this.fetchData = this.fetchData.bind(this);
     this.state = {
       rows: [],
       totals: []
     };
   }
-  componentDidMount() {
+
+  fetchData() {
     axios.get("http://127.0.0.1:8080/financial_unists_positions").then(res => {
       console.log("axios");
       this.setPositionsFromData(res.data);
     });
+  }
+  componentDidMount() {
+    setTimeout(this.fetchData, 3000);
   }
 
   setPositionsFromData(data) {
@@ -34,11 +40,9 @@ export default class MainComponent extends React.PureComponent {
       totalsAcc[row.name] += row.value;
       return row;
     });
-    console.log(totalsAcc);
     const totals = Object.keys(totalsAcc).map(funame => {
       return { name: funame, value: totalsAcc[funame] };
     });
-    console.log(totals);
     this.setState({ rows, totals });
   }
 

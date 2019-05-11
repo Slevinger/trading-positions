@@ -1,0 +1,29 @@
+.value-to-convert {
+  padding: 5px;
+  background-color: #0b1429;
+  font-size: x-large;
+  color: white;
+  width: 100px;
+  border-radius: 7px;
+}
+
+.calculator {
+  width: 470px;
+  position: sticky;
+  left: auto;
+  justify-content: space-evenly;
+  display: flex;
+  left: 35%;
+}
+
+.claculator-button {
+  font-size: xx-large;
+  color: white;
+  border: solid thin;
+  border-radius: 7px;
+}
+
+.claculator-button:hover {
+  cursor: pointer;
+  background-color: darkblue;
+}

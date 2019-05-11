@@ -3,6 +3,7 @@ module.exports = getFinancialUnitsPositions = (
   finsancialUnits,
   rates
 ) => {
+  console.log("rates", rates);
   return positions.map(position => {
     const id = position.id;
     Object.assign(position, finsancialUnits[position.fuOriginId]);

@@ -1,6 +1,8 @@
 import React from "react";
 import GridRow from "./gridRow";
 import "./generalGrid.css";
+import "./spinner.css";
+
 import GridToolBox from "./gridToolBox/gridToolBox";
 
 export default class GeneralGrid extends React.PureComponent {
@@ -22,8 +24,9 @@ export default class GeneralGrid extends React.PureComponent {
     );
   }
 
-  render() {
+  renderGrid() {
     const { rows, headers } = this.props;
+
     return (
       <div className="financial-units-grid">
         {this.renderHeadersNames()}
@@ -41,5 +44,13 @@ export default class GeneralGrid extends React.PureComponent {
           })}
       </div>
     );
+  }
+  renderSpinner() {
+    return <div className="spinner" />;
+  }
+
+  render() {
+    const { rows } = this.props;
+    return rows.length > 0 ? this.renderGrid() : this.renderSpinner();
   }
 }

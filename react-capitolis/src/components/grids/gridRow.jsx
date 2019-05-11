@@ -30,7 +30,6 @@ export default class GridRow extends React.PureComponent {
         } ${className}`}
       >
         {headers.map((colSettings, index) => {
-          console.log(colSettings);
           return (
             <GridBaseCell
               key={index}

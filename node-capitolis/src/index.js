@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 // free currency exchange api
 const fixer = require("./rest_handlers/fixer");
+const openExchangeRates = require("./rest_handlers/openExchangeRates");
 const getFinancialUnitsPositions = require("./rest_handlers/financialUnitsComposer");
 const PORT = 8080;
 const DATA = {};
@@ -64,7 +65,7 @@ app.get("/rates", (req, res) => {
   let { symbols } = req.query;
   symbols = symbols || "";
   console.log(symbols);
-  fixer.getRates(symbols.split(","), (err, data) => {
+  openExchangeRates.getRates(symbols.split(","), (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -82,14 +83,15 @@ app.get("/financial_units", (req, res) => {
 });
 
 app.get("/financial_unists_positions", (req, res) => {
-  fixer.getRates([], (err, data) => {
+  openExchangeRates.getRates([], (err, data) => {
     if (err) {
       res.status(400).send(err);
     } else {
+      console.log(data);
       let result = getFinancialUnitsPositions(
         DATA.positions,
         DATA.finUnits,
-        data.cachedRates
+        data.rates
       );
       res.status(200).send(result);
     }
