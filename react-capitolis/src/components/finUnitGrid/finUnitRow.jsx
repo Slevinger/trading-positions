@@ -1,6 +1,5 @@
 import React from "react";
 import FinUnitGridBaseCell from "./finUnitGridCell/finUnitGridBaseCell";
-import { headers } from "./grid-config";
 
 // import "./finUnitRow.css";
 // todo: import the grid defenitions order/captions/filters
@@ -21,7 +20,7 @@ export default class FinUnitRow extends React.PureComponent {
   }
 
   render() {
-    const { rowData, className } = this.props;
+    const { rowData, className, headers } = this.props;
 
     return (
       <div

@@ -1,5 +1,7 @@
 const BASE = "EUR";
 
+let rowsAsData;
+
 export const headers = [
   {
     fieldName: "name",
@@ -27,3 +29,13 @@ export const headers = [
     index: 4
   }
 ];
+
+export const getHeadersAsRow = () => {
+  rowsAsData =
+    rowsAsData ||
+    headers.reduce((acc, headerSettings) => {
+      acc[headerSettings.fieldName] = headerSettings.caption;
+      return acc;
+    }, {});
+  return rowsAsData;
+};

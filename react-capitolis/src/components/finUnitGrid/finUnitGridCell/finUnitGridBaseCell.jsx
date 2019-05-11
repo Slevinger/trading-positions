@@ -6,9 +6,14 @@ export default class FinUnitGridBaseCell extends React.PureComponent {
   }
 
   render() {
+    const { cellValue } = this.props;
     return (
       <div className="grid-cell">
-        <p>{this.props.cellValue}</p>
+        <p>
+          {typeof cellValue == "number"
+            ? cellValue.toLocaleString("en-US")
+            : cellValue}
+        </p>
       </div>
     );
   }

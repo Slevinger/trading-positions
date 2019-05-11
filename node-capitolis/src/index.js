@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 // free currency exchange api
 const fixer = require("./rest_handlers/fixer");
+const getFinancialUnitsPositions = require("./rest_handlers/financialUnitsComposer");
 const PORT = 8080;
 const DATA = {};
 let server;
@@ -37,21 +38,14 @@ fs.readdir(dataDir, (err, items) => {
 // when you start the server you get the most current rates from external Api
 const startServer = filesToLoadSize => {
   if (filesToLoadSize == countFilesLoaded) {
-    fixer.getRates([], (err, data) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        DATA.rates = data.rates;
-        DATA.finUnits = Object.keys(DATA.finUnits)
-          .map(id => DATA.finUnits[id])
-          .reduce((acc, unit) => {
-            acc[unit.id] = unit;
-            return acc;
-          }, {});
-        server = app.listen(PORT, () => {
-          console.log(`Server running at http://127.0.0.1:${PORT} /'`);
-        });
-      }
+    DATA.finUnits = Object.keys(DATA.finUnits)
+      .map(id => DATA.finUnits[id])
+      .reduce((acc, unit) => {
+        acc[unit.id] = unit;
+        return acc;
+      }, {});
+    server = app.listen(PORT, () => {
+      console.log(`Server running at http://127.0.0.1:${PORT} /'`);
     });
   }
 };
@@ -88,16 +82,17 @@ app.get("/financial_units", (req, res) => {
 });
 
 app.get("/financial_unists_positions", (req, res) => {
-  console.log(DATA);
-  let result = DATA.positions.map(position => {
-    const id = position.id;
-    Object.assign(position, DATA.finUnits[position.fuOriginId]);
-    Object.assign(position, position.data);
-    delete position.data;
-    position.rate = DATA.rates[position.currency.ccy];
-    position.id = id;
-    return position;
-  }, {});
-  console.log(result);
-  res.status(200).send(result);
+  fixer.getRates([], (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      let result = getFinancialUnitsPositions(
+        DATA.positions,
+        DATA.finUnits,
+        data.cachedRates
+      );
+      res.status(200).send(result);
+    }
+  });
+  // todo: external service
 });

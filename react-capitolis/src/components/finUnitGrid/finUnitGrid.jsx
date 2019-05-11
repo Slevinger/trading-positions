@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import FinUnitRow from "./finUnitRow";
-import { headers } from "./grid-config";
+import { getHeadersAsRow, headers } from "./grid-config";
 
 import "./finUnitGrid.css";
 
@@ -34,11 +34,13 @@ export default class FinUnitsGrid extends React.PureComponent {
   }
 
   renderHeadersNames() {
-    const headersRowData = headers.reduce((acc, headerSettings) => {
-      acc[headerSettings.fieldName] = headerSettings.caption;
-      return acc;
-    }, {});
-    return <FinUnitRow className="grid-header" rowData={headersRowData} />;
+    return (
+      <FinUnitRow
+        className="grid-header"
+        headers={headers}
+        rowData={getHeadersAsRow()}
+      />
+    );
   }
 
   render() {
@@ -50,7 +52,9 @@ export default class FinUnitsGrid extends React.PureComponent {
         {this.renderHeadersNames()}
         {rows.map((position, index) => {
           const { id } = position;
-          return <FinUnitRow key={id} rowData={rows[index]} />;
+          return (
+            <FinUnitRow key={id} headers={headers} rowData={rows[index]} />
+          );
         })}
       </div>
     );
