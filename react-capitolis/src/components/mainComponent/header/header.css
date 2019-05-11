@@ -1,0 +1,14 @@
+.header {
+  height: 80px;
+  width: 100%;
+  background: #0b1429;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+}
+
+.capitolis-logo {
+  height: 40px;
+  margin-left: 20px;
+}

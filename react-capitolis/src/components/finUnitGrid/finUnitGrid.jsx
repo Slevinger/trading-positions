@@ -23,6 +23,7 @@ export default class FinUnitsGrid extends React.PureComponent {
       row.name = fuPosition.name;
       row.rate = fuPosition.rate;
       row.id = fuPosition.id;
+      row.value = row.rate * row.notionalValue;
       return row;
     });
     // console.log(rows);

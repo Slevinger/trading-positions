@@ -1,12 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import FinUnitsGrid from "./components/finUnitGrid/finUnitGrid";
+import MainComponent from "./components/mainComponent/mainComponent";
+
 function App() {
-  let finUnits = { "1": { name: "shir" }, "2": { name: "libi" } };
   return (
     <div className="App">
-      <FinUnitsGrid />
+      <MainComponent />
     </div>
   );
 }

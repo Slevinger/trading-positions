@@ -13,8 +13,7 @@
 .grid-row {
   flex-direction: row;
   display: flex;
-  flex: 1;
-  width: 80%;
+  width: fit-content;
   justify-content: center;
 }
 
@@ -32,7 +31,7 @@
   width: -webkit-fill-available;
   padding: 5px;
   height: 27px;
-  max-width: 200px;
+  width: 200px;
 }
 
 .grid-header {

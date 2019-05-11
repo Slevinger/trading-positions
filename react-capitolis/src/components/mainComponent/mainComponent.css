@@ -1,0 +1,12 @@
+.main-component {
+  height: 100%;
+  padding-top: 40px;
+}
+
+.grid-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ededed;
+}
