@@ -1,6 +1,7 @@
 import React from "react";
 import GridRow from "./gridRow";
 import "./generalGrid.css";
+import GridToolBox from "./gridToolBox/gridToolBox";
 
 export default class GeneralGrid extends React.PureComponent {
   constructor(props) {
@@ -8,12 +9,16 @@ export default class GeneralGrid extends React.PureComponent {
   }
 
   renderHeadersNames() {
+    const { rows, headers, headerRow } = this.props;
     return (
-      <GridRow
-        className="grid-header"
-        headers={this.props.headers}
-        rowData={this.props.headerRow}
-      />
+      <div>
+        <GridToolBox data={rows} headers={headerRow} />
+        <GridRow
+          className="grid-header"
+          headers={headers}
+          rowData={headerRow}
+        />
+      </div>
     );
   }
 

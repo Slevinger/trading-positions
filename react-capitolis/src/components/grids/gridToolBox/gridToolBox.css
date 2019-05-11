@@ -1,0 +1,14 @@
+.grid-toolbox {
+  flex-direction: row;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.icon {
+  height: 20px;
+  margin: 5px;
+}
+.icon:hover {
+  cursor: pointer;
+  background-color: darkgray;
+}
