@@ -21,7 +21,6 @@ const getRates = (symbols, callback) => {
         if (res.statusCode != 200) {
           return callback(res.error);
         }
-        console.log(res.toJSON());
         const { rates: cachedRates, base } = res.body;
         callback(undefined, { cachedRates, base });
       }

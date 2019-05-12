@@ -1,4 +1,5 @@
-const BASE = "EUR";
+let base = "USD";
+let convertTo = "EUR";
 
 export const headers = {
   financialUnitsPoisions: [
@@ -7,20 +8,20 @@ export const headers = {
       caption: "Financial Name"
     },
     {
-      fieldName: "value",
-      caption: `Total Value in (${BASE})`
-    },
-    {
-      fieldName: "rate",
-      caption: "Rate"
+      fieldName: "notionalValue",
+      caption: `National Value`
     },
     {
       fieldName: "ccy",
       caption: "Currency"
     },
     {
+      fieldName: "rate",
+      caption: "Rate"
+    },
+    {
       fieldName: "value",
-      caption: `Calculated Value in(${BASE})`
+      caption: `Calculated Value in(${base})`
     }
   ],
   financialUnitsPoisionsSums: [
@@ -30,7 +31,7 @@ export const headers = {
     },
     {
       fieldName: "value",
-      caption: `Total value in (${BASE})`
+      caption: `Total value in (${base})`
     }
   ]
 };

@@ -5,10 +5,20 @@ import "./currancyCalculator.css";
 export default class CurrencyCalculator extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { value: 0, base: "USD", convertTo: "EUR", rates: null };
+    this.state = {
+      editingResult: false,
+      value: 0,
+      base: "USD",
+      convertTo: "EUR",
+      rates: null
+    };
   }
 
-  renderCalculator() {}
+  handleKeyPress(target) {
+    if (target.charCode == 13 && this.state.editingResult) {
+      this.setResultValue(target);
+    }
+  }
 
   componentDidMount() {
     axios.get("http://127.0.0.1:8080/rates").then(res => {
@@ -22,8 +32,11 @@ export default class CurrencyCalculator extends React.PureComponent {
       value: e.target.value
     });
   }
+
   getValue() {
-    return this.state.value * this.state.rates[this.state.convertTo] || 0;
+    return (
+      this.state.value * this.state.rates[this.state.convertTo] || 0
+    ).toLocaleString("en-US");
   }
 
   newCurrncyChosen(e) {
@@ -36,33 +49,34 @@ export default class CurrencyCalculator extends React.PureComponent {
       return <div />;
     } else {
       return (
-        <div className="calculator">
+        <div className="calculator" onKeyPress={this.handleKeyPress.bind(this)}>
           <input
+            value={this.state.value}
             onChange={this.setValue.bind(this)}
             type="number"
             placeholder="0.00"
             className="value-to-convert"
           />
-          <div className="value-to-convert">{base}</div>
-
-          <div className="claculator-button">=</div>
+          <div className="value-to-convert">{base} =</div>
 
           <input
-            type="number"
+            type="text"
             readOnly
-            className="value-to-convert"
-            value={this.getValue()}
+            disabled
+            id="calculator-result"
+            className="value-to-convert disabled"
+            value={this.getValue.bind(this)()}
           />
           <select
             value={this.state.convertTo}
-            className="value-to-convert"
+            className="value-to-convert calculator-selector"
             onChange={this.newCurrncyChosen.bind(this)}
           >
             {Object.keys(rates).map(currency => (
               <option
                 key={currency}
                 value={currency}
-                selected={this.state.convertTo == currency}
+                defaultValue={this.state.convertTo}
               >
                 {currency}
               </option>

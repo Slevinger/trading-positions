@@ -23,8 +23,6 @@ export default class GridToolBox extends React.PureComponent {
     document.body.appendChild(link); // Required for FF
 
     link.click();
-
-    console.log(data);
   }
 
   render() {

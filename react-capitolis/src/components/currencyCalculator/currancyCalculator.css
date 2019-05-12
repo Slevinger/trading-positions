@@ -3,8 +3,9 @@
   background-color: #0b1429;
   font-size: x-large;
   color: white;
-  width: 100px;
+  min-width: 80px;
   border-radius: 7px;
+  margin-right: 10px;
 }
 
 .calculator {
@@ -26,4 +27,14 @@
 .claculator-button:hover {
   cursor: pointer;
   background-color: darkblue;
+}
+
+.disabled {
+  background-color: #21252f;
+  border-color: #929292;
+}
+
+.calculator-selector {
+  background-color: #a8abb1;
+  color: black;
 }

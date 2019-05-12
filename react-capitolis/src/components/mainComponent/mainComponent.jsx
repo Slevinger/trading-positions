@@ -31,7 +31,6 @@ export default class MainComponent extends React.PureComponent {
     const totalsAcc = {};
     const rows = data.map(fuPosition => {
       const row = { ...fuPosition.currency };
-      // console.log(option);
       row.name = fuPosition.name;
       row.rate = fuPosition.rate;
       row.id = fuPosition.id;

@@ -1,9 +1,4 @@
-module.exports = getFinancialUnitsPositions = (
-  positions,
-  finsancialUnits,
-  rates
-) => {
-  console.log("rates", rates);
+const getFinancialUnitsPositions = (positions, finsancialUnits, rates) => {
   return positions.map(position => {
     const id = position.id;
     Object.assign(position, finsancialUnits[position.fuOriginId]);
@@ -14,3 +9,14 @@ module.exports = getFinancialUnitsPositions = (
     return position;
   });
 };
+
+const buildFinUnits = data => {
+  data.finUnits = Object.keys(data.finUnits)
+    .map(id => data.finUnits[id])
+    .reduce((acc, unit) => {
+      acc[unit.id] = unit;
+      return acc;
+    }, {});
+};
+
+module.exports = { getFinancialUnitsPositions, buildFinUnits };

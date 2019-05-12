@@ -3,7 +3,7 @@ const urlDomain = "https://openexchangerates.org/api/";
 const APP_ID = "d74f80f472814b1c96f4d7ec79458bc6";
 let lastTimeFetched, cachedRates;
 
-const getRates = (symbols, callback) => {
+const getRates = async (symbols, callback) => {
   const now = new Date().getTime();
   if (!cachedRates || (lastTimeFetched && now - lastTimeFetched > 1000000)) {
     lastTimeFetched = now;
