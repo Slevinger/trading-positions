@@ -4,12 +4,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 // free currency exchange api
-const fixer = require("./rest_handlers/fixer");
 const openExchangeRates = require("./rest_handlers/openExchangeRates");
 const financialUnitsComposer = require("./rest_handlers/financialUnitsComposer");
 const PORT = 8080;
 const DATA = {};
-let server;
+let server, countFilesToLoad;
 let countFilesLoaded = 0;
 let dataDir = path.join(__dirname, "../data");
 
@@ -22,7 +21,8 @@ fs.readdir(dataDir, (err, items) => {
   if (err) {
     return console.log(err);
   }
-  for (var i = 0; i < items.length; i++) {
+  countFilesToLoad = items.length;
+  for (var i = 0; i < countFilesToLoad; i++) {
     const [name, extention] = items[i].split(".");
     fs.readFile(path.join(dataDir, `./${items[i]}`), (err, data) => {
       const json = JSON.parse(data.toString());
@@ -30,20 +30,17 @@ fs.readdir(dataDir, (err, items) => {
         DATA[key] = json[key];
       }
       countFilesLoaded++;
-
-      startServer(items.length);
+      if (countFilesLoaded == countFilesToLoad) startServer();
     });
   }
 });
 
 // when you start the server you get the most current rates from external Api
-const startServer = filesToLoadSize => {
-  if (filesToLoadSize == countFilesLoaded) {
-    financialUnitsComposer.buildFinUnits(DATA);
-    server = app.listen(PORT, () => {
-      console.log(`Server running at http://127.0.0.1:${PORT} /'`);
-    });
-  }
+const startServer = () => {
+  financialUnitsComposer.buildFinUnits(DATA);
+  server = app.listen(PORT, () => {
+    console.log(`Server running at http://127.0.0.1:${PORT} /'`);
+  });
 };
 
 // support CORS
