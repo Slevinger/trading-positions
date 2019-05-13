@@ -7,9 +7,6 @@ import GridToolBox from "./gridToolBox/gridToolBox";
 export default class GeneralGrid extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      state: "initiating" // 'ongoing'
-    };
   }
 
   renderHeadersNames() {
@@ -27,13 +24,7 @@ export default class GeneralGrid extends React.PureComponent {
     );
   }
 
-  componentDidMount() {
-    if (this.props.rows.length) {
-      this.setState({ state: "ongoing" });
-    }
-  }
-
-  renderGrid() {
+  render() {
     const { rows, headers } = this.props;
     return (
       <div className="financial-units-grid">
@@ -52,10 +43,5 @@ export default class GeneralGrid extends React.PureComponent {
           })}
       </div>
     );
-  }
-
-  render() {
-    const { rows } = this.props;
-    return this.renderGrid();
   }
 }

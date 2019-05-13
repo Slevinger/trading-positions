@@ -6,7 +6,6 @@ export default class CurrencyCalculator extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      editingResult: false,
       value: 0,
       base: "USD",
       convertTo: "EUR",
@@ -14,15 +13,8 @@ export default class CurrencyCalculator extends React.PureComponent {
     };
   }
 
-  handleKeyPress(target) {
-    if (target.charCode == 13 && this.state.editingResult) {
-      this.setResultValue(target);
-    }
-  }
-
   componentDidMount() {
     axios.get("http://127.0.0.1:8080/rates").then(res => {
-      console.log("axios");
       this.setState({ ...this.state, rates: res.data.rates });
     });
   }
@@ -40,6 +32,52 @@ export default class CurrencyCalculator extends React.PureComponent {
     ).toLocaleString("en-US");
   }
 
+  renderCalcInput() {
+    return (
+      <input
+        value={this.state.value}
+        onChange={this.setValue.bind(this)}
+        type="number"
+        placeholder="0.00"
+        className="value-to-convert"
+      />
+    );
+  }
+
+  renderValueInput() {
+    return (
+      <input
+        type="text"
+        readOnly
+        disabled
+        id="calculator-result"
+        className="value-to-convert disabled"
+        value={this.getValue.bind(this)()}
+      />
+    );
+  }
+
+  renderCurrencyCelector() {
+    const { rates } = this.state;
+    return (
+      <select
+        value={this.state.convertTo}
+        className="value-to-convert calculator-selector"
+        onChange={this.newCurrncyChosen.bind(this)}
+      >
+        {Object.keys(rates).map(currency => (
+          <option
+            key={currency}
+            value={currency}
+            defaultValue={this.state.convertTo}
+          >
+            {currency}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
   newCurrncyChosen(e) {
     this.setState({ ...this.state, convertTo: e.currentTarget.value });
   }
@@ -51,38 +89,10 @@ export default class CurrencyCalculator extends React.PureComponent {
     } else {
       return (
         <div className="calculator" onKeyPress={this.handleKeyPress.bind(this)}>
-          <input
-            value={this.state.value}
-            onChange={this.setValue.bind(this)}
-            type="number"
-            placeholder="0.00"
-            className="value-to-convert"
-          />
+          {this.renderCalcInput()}
           <div className="value-to-convert">{base} =</div>
-
-          <input
-            type="text"
-            readOnly
-            disabled
-            id="calculator-result"
-            className="value-to-convert disabled"
-            value={this.getValue.bind(this)()}
-          />
-          <select
-            value={this.state.convertTo}
-            className="value-to-convert calculator-selector"
-            onChange={this.newCurrncyChosen.bind(this)}
-          >
-            {Object.keys(rates).map(currency => (
-              <option
-                key={currency}
-                value={currency}
-                defaultValue={this.state.convertTo}
-              >
-                {currency}
-              </option>
-            ))}
-          </select>
+          {this.renderValueInput()}
+          {this.renderCurrencyCelector()}
         </div>
       );
     }

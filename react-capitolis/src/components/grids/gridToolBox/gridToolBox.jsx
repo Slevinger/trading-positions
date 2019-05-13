@@ -16,13 +16,12 @@ export default class GridToolBox extends React.PureComponent {
     let csvContent =
       "data:text/csv;charset=utf-8," + data.map(e => e.join(",")).join("\n");
     var encodedUri = encodeURI(csvContent);
-    var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
     link.setAttribute("download", "my_data.csv");
-    document.body.appendChild(link); // Required for FF
-
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   }
 
   render() {
