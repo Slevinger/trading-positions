@@ -23,12 +23,13 @@ export default class CurrencyCalculator extends React.PureComponent {
   componentDidMount() {
     axios.get("http://127.0.0.1:8080/rates").then(res => {
       console.log("axios");
-      this.setState({ rates: res.data.rates });
+      this.setState({ ...this.state, rates: res.data.rates });
     });
   }
 
   setValue(e) {
     this.setState({
+      ...this.state,
       value: e.target.value
     });
   }
@@ -40,7 +41,7 @@ export default class CurrencyCalculator extends React.PureComponent {
   }
 
   newCurrncyChosen(e) {
-    this.setState({ convertTo: e.currentTarget.value });
+    this.setState({ ...this.state, convertTo: e.currentTarget.value });
   }
 
   render() {

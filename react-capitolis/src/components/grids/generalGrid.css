@@ -51,3 +51,13 @@
   background-color: darkblue;
   color: white;
 }
+
+.grid-title {
+  color: white;
+  opacity: 0;
+}
+
+.grid-title:hover {
+  color: white;
+  opacity: 1;
+}

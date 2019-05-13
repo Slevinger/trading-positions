@@ -15,6 +15,7 @@ export default class GridRow extends React.PureComponent {
 
   onClick() {
     this.setState(prevState => ({
+      ...prevState,
       expanded: !prevState.expanded
     }));
   }

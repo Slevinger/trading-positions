@@ -6,6 +6,11 @@ import GeneralGrid from "../grids/generalGrid";
 import { getHeadersAsRow, headers } from "./grid-config";
 import "./mainComponent.css";
 
+const states = {
+  INITIATING: "initiating",
+  ONGOING: "ongoing"
+};
+
 export default class MainComponent extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -13,7 +18,8 @@ export default class MainComponent extends React.PureComponent {
     this.fetchData = this.fetchData.bind(this);
     this.state = {
       rows: [],
-      totals: []
+      totals: [],
+      state: states.INITIATING
     };
   }
 
@@ -22,33 +28,49 @@ export default class MainComponent extends React.PureComponent {
       console.log("axios");
       this.setPositionsFromData(res.data);
     });
+    setTimeout(this.fetchData, 3000);
   }
   componentDidMount() {
     setTimeout(this.fetchData, 3000);
+  }
+  getCurrentStateRowForRowId(rowId) {
+    let row = this.state.rows.find(row => row.id == rowId);
+    return row || {};
   }
 
   setPositionsFromData(data) {
     const totalsAcc = {};
     const rows = data.map(fuPosition => {
-      const row = { ...fuPosition.currency };
-      row.name = fuPosition.name;
-      row.rate = fuPosition.rate;
-      row.id = fuPosition.id;
-      row.value = row.notionalValue / row.rate;
-      totalsAcc[row.name] = totalsAcc[row.name] || 0;
-      totalsAcc[row.name] += row.value;
+      const currentRow = this.getCurrentStateRowForRowId(fuPosition.id);
+      let row;
+      if (currentRow.rate == fuPosition.rate) {
+        row = currentRow;
+      } else {
+        row = { ...fuPosition.currency };
+        row.name = fuPosition.name;
+        row.rate = fuPosition.rate;
+        row.id = fuPosition.id;
+        row.value = row.notionalValue / row.rate;
+        totalsAcc[row.name] = totalsAcc[row.name] || 0;
+        totalsAcc[row.name] += row.value;
+      }
       return row;
     });
     const totals = Object.keys(totalsAcc).map(funame => {
       return { name: funame, value: totalsAcc[funame] };
     });
-    this.setState({ rows, totals });
+    this.setState({ ...this.state, state: states.ONGOING, rows, totals });
   }
 
-  render() {
-    return (
-      <div className="main-component">
-        <Header />
+  renderSpinner() {
+    return <div className="spinner" />;
+  }
+
+  renderMain() {
+    if (this.state.state == states.INITIATING) {
+      return this.renderSpinner();
+    } else {
+      return (
         <div className="grid-wrapper">
           <GeneralGrid
             headerRow={getHeadersAsRow("financialUnitsPoisions")}
@@ -61,6 +83,15 @@ export default class MainComponent extends React.PureComponent {
             rows={this.state.totals}
           />
         </div>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className="main-component">
+        <Header />
+        {this.renderMain()}
       </div>
     );
   }

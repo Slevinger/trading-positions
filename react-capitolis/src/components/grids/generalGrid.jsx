@@ -1,19 +1,22 @@
 import React from "react";
 import GridRow from "./gridRow";
 import "./generalGrid.css";
-import "./spinner.css";
 
 import GridToolBox from "./gridToolBox/gridToolBox";
 
 export default class GeneralGrid extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      state: "initiating" // 'ongoing'
+    };
   }
 
   renderHeadersNames() {
     const { rows, headers, headerRow } = this.props;
     return (
       <div>
+        <div className="grid-title">Title</div>
         <GridToolBox data={rows} headers={headerRow} />
         <GridRow
           className="grid-header"
@@ -24,9 +27,14 @@ export default class GeneralGrid extends React.PureComponent {
     );
   }
 
+  componentDidMount() {
+    if (this.props.rows.length) {
+      this.setState({ state: "ongoing" });
+    }
+  }
+
   renderGrid() {
     const { rows, headers } = this.props;
-
     return (
       <div className="financial-units-grid">
         {this.renderHeadersNames()}
@@ -45,12 +53,9 @@ export default class GeneralGrid extends React.PureComponent {
       </div>
     );
   }
-  renderSpinner() {
-    return <div className="spinner" />;
-  }
 
   render() {
     const { rows } = this.props;
-    return rows.length > 0 ? this.renderGrid() : this.renderSpinner();
+    return this.renderGrid();
   }
 }
