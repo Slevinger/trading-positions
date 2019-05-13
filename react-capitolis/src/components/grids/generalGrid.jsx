@@ -44,7 +44,7 @@ export default class GeneralGrid extends React.PureComponent {
             return (
               <GridRow
                 className="value-row"
-                key={id}
+                key={id + "_" + index}
                 headers={headers}
                 rowData={rows[index]}
               />

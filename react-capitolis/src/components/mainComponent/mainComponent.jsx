@@ -73,11 +73,13 @@ export default class MainComponent extends React.PureComponent {
       return (
         <div className="grid-wrapper">
           <GeneralGrid
+            key="financialUnitsPoisions"
             headerRow={getHeadersAsRow("financialUnitsPoisions")}
             headers={headers.financialUnitsPoisions}
             rows={this.state.rows}
           />
           <GeneralGrid
+            key="financialUnitsPoisionsSums"
             headerRow={getHeadersAsRow("financialUnitsPoisionsSums")}
             headers={headers.financialUnitsPoisionsSums}
             rows={this.state.totals}
