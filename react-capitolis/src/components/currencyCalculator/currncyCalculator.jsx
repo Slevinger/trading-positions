@@ -88,7 +88,7 @@ export default class CurrencyCalculator extends React.PureComponent {
       return <div />;
     } else {
       return (
-        <div className="calculator" onKeyPress={this.handleKeyPress.bind(this)}>
+        <div className="calculator">
           {this.renderCalcInput()}
           <div className="value-to-convert">{base} =</div>
           {this.renderValueInput()}
