@@ -51,9 +51,9 @@ export default class MainComponent extends React.PureComponent {
         row.rate = fuPosition.rate;
         row.id = fuPosition.id;
         row.value = row.notionalValue / row.rate;
-        totalsAcc[row.name] = totalsAcc[row.name] || 0;
-        totalsAcc[row.name] += row.value;
       }
+      totalsAcc[row.name] = totalsAcc[row.name] || 0;
+      totalsAcc[row.name] += row.value;
       return row;
     });
     const totals = Object.keys(totalsAcc).map(funame => {
