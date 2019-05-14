@@ -1,17 +1,17 @@
-commands to make project run:
+##commands to make project run:
 
-git clone https://github.com/Slevinger/trading-positions
+##git clone https://github.com/Slevinger/trading-positions
 
-cd trading-positions/node-capitolis
+##cd trading-positions/node-capitolis
 
-npm install
+##npm install
 
-node ./src/index.js
+##node ./src/index.js
 
-New Terminal:
+##New Terminal:
 
-cd trading-positions/react-capitolis
+##cd trading-positions/react-capitolis
 
-npm install
+##npm install
 
-npm start run
+##npm start run
