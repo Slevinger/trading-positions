@@ -53,12 +53,14 @@
 }
 
 .grid-title {
-  color: white;
+  color: #49b3e1;
   transition: opacity 500ms;
+  font-size: x-large;
+  font-style: oblique;
+  font-family: monospace;
   opacity: 0;
 }
 
 .show {
-  color: white;
   opacity: 1;
 }

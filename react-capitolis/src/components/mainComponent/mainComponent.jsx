@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Header from "./header/header";
 import GeneralGrid from "../grids/generalGrid";
-import { getHeadersAsRow, headers } from "./grid-config";
+import { getHeadersAsRow, gridConfigs } from "./grid-config";
 import "./mainComponent.css";
 
 const states = {
@@ -73,14 +73,16 @@ export default class MainComponent extends React.PureComponent {
         <div className="grid-wrapper">
           <GeneralGrid
             key="financialUnitsPositions"
+            title={gridConfigs.financialUnitsPositions.title}
             headerRow={getHeadersAsRow("financialUnitsPositions")}
-            headers={headers.financialUnitsPositions}
+            headers={gridConfigs.financialUnitsPositions.headers}
             rows={this.state.rows}
           />
           <GeneralGrid
             key="financialUnitsPositionsSums"
+            title={gridConfigs.financialUnitsPositionsSums.title}
             headerRow={getHeadersAsRow("financialUnitsPositionsSums")}
-            headers={headers.financialUnitsPositionsSums}
+            headers={gridConfigs.financialUnitsPositionsSums.headers}
             rows={this.state.totals}
           />
         </div>

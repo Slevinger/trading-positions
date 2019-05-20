@@ -7,13 +7,31 @@ import GridToolBox from "./gridToolBox/gridToolBox";
 export default class GeneralGrid extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = { selectedRows: {} };
+  }
+
+  toggleSelectAll(e) {
+    if (e.target.closest(".grid-header")) {
+      alert("boyya");
+    }
+  }
+
+  selectRow(e) {
+    const id = e.currentTarget.id;
+    let selectedRows = { ...this.state.selectedRows };
+    if (selectedRows[id]) {
+      delete selectedRows[id];
+    } else {
+      selectedRows[e.currentTarget.id] = e.currentTarget;
+    }
+    this.setState({ ...this.state, selectedRows });
   }
 
   renderHeadersNames() {
-    const { rows, headers, headerRow } = this.props;
+    const { rows, headers, headerRow, title } = this.props;
     return (
-      <div>
-        <div className="grid-title">Title</div>
+      <div onClick={this.toggleSelectAll.bind(this)}>
+        <div className="grid-title">{title}</div>
         <GridToolBox data={rows} headers={headerRow} />
         <GridRow
           className="grid-header"
@@ -48,7 +66,6 @@ export default class GeneralGrid extends React.PureComponent {
         break;
       }
     }
-    console.log(title);
   }
 
   render() {
@@ -61,8 +78,11 @@ export default class GeneralGrid extends React.PureComponent {
             const { id } = position;
             return (
               <GridRow
+                rowid={id}
                 className="value-row"
                 key={id + "_" + index}
+                onClick={this.selectRow.bind(this)}
+                selected={this.state.selectedRows[id] ? true : false}
                 headers={headers}
                 rowData={rows[index]}
               />

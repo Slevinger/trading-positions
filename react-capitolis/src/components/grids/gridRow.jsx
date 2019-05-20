@@ -4,10 +4,12 @@ import GridBaseCell from "./gridCell/gridBaseCell";
 export default class GridRow extends React.PureComponent {
   constructor(props) {
     super(props);
+    const { rowid } = props;
     this.state = {
-      expanded: false
+      expanded: false,
+      rowid
     };
-    this.onClick = this.onClick.bind(this);
+    this.onClick = (this.props.onClick || this.onClick).bind(this);
   }
 
   onClick() {
@@ -18,15 +20,24 @@ export default class GridRow extends React.PureComponent {
   }
 
   render() {
-    const { rowData, className, headers, onMouseOver, onMouseOut } = this.props;
-
+    const {
+      rowData,
+      className,
+      headers,
+      onMouseOver,
+      onMouseOut,
+      rowid,
+      selected
+    } = this.props;
+    const selectRow = this.props.onClick || this.onClick;
     return (
       <div
-        onClick={this.onClick}
+        id={rowid}
+        onClick={selectRow}
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
         className={`fin-unit grid-row ${
-          this.state.expanded ? " selected" : ""
+          selected ? " selected" : ""
         } ${className}`}
       >
         {headers.map((colSettings, index) => {
