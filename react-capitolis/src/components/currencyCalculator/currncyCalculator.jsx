@@ -57,7 +57,7 @@ export default class CurrencyCalculator extends React.PureComponent {
     );
   }
 
-  renderCurrencyCelector() {
+  renderCurrencyCalculator() {
     const { rates } = this.state;
     return (
       <select
@@ -66,11 +66,7 @@ export default class CurrencyCalculator extends React.PureComponent {
         onChange={this.newCurrncyChosen.bind(this)}
       >
         {Object.keys(rates).map(currency => (
-          <option
-            key={currency}
-            value={currency}
-            defaultValue={this.state.convertTo}
-          >
+          <option key={currency} value={currency}>
             {currency}
           </option>
         ))}
@@ -92,7 +88,7 @@ export default class CurrencyCalculator extends React.PureComponent {
           {this.renderCalcInput()}
           <div className="value-to-convert">{base} =</div>
           {this.renderValueInput()}
-          {this.renderCurrencyCelector()}
+          {this.renderCurrencyCalculator()}
         </div>
       );
     }

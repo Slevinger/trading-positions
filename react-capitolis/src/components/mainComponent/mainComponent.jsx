@@ -28,7 +28,6 @@ export default class MainComponent extends React.PureComponent {
       console.log("axios");
       this.setPositionsFromData(res.data);
     });
-    setTimeout(this.fetchData, 3000);
   }
   componentDidMount() {
     setTimeout(this.fetchData, 3000);
@@ -73,15 +72,15 @@ export default class MainComponent extends React.PureComponent {
       return (
         <div className="grid-wrapper">
           <GeneralGrid
-            key="financialUnitsPoisions"
-            headerRow={getHeadersAsRow("financialUnitsPoisions")}
-            headers={headers.financialUnitsPoisions}
+            key="financialUnitsPositions"
+            headerRow={getHeadersAsRow("financialUnitsPositions")}
+            headers={headers.financialUnitsPositions}
             rows={this.state.rows}
           />
           <GeneralGrid
-            key="financialUnitsPoisionsSums"
-            headerRow={getHeadersAsRow("financialUnitsPoisionsSums")}
-            headers={headers.financialUnitsPoisionsSums}
+            key="financialUnitsPositionsSums"
+            headerRow={getHeadersAsRow("financialUnitsPositionsSums")}
+            headers={headers.financialUnitsPositionsSums}
             rows={this.state.totals}
           />
         </div>

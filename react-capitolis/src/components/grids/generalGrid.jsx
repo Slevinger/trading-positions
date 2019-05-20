@@ -19,9 +19,36 @@ export default class GeneralGrid extends React.PureComponent {
           className="grid-header"
           headers={headers}
           rowData={headerRow}
+          onMouseOut={this.hideTitle.bind(this)}
+          onMouseOver={this.showTitle.bind(this)}
         />
       </div>
     );
+  }
+
+  showTitle(e) {
+    this.changeVisibilityOfSiblingByClassNamw(e, "grid-title", "show");
+  }
+  hideTitle(e) {
+    this.changeVisibilityOfSiblingByClassNamw(e, "grid-title", "hide");
+  }
+  changeVisibilityOfSiblingByClassNamw(e, siblingClassName, display) {
+    const title = e.currentTarget.parentElement.getElementsByClassName(
+      siblingClassName
+    )[0];
+    switch (display) {
+      case "show": {
+        title.classList.add("show");
+        title.classList.remove("hide");
+        break;
+      }
+      default: {
+        title.classList.add("hide");
+        title.classList.remove("show");
+        break;
+      }
+    }
+    console.log(title);
   }
 
   render() {

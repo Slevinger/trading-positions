@@ -18,11 +18,13 @@ export default class GridRow extends React.PureComponent {
   }
 
   render() {
-    const { rowData, className, headers } = this.props;
+    const { rowData, className, headers, onMouseOver, onMouseOut } = this.props;
 
     return (
       <div
         onClick={this.onClick}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
         className={`fin-unit grid-row ${
           this.state.expanded ? " selected" : ""
         } ${className}`}

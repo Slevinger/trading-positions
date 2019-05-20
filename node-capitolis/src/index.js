@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 // free currency exchange api
 const openExchangeRates = require("./rest_handlers/openExchangeRates");
 const financialUnitsComposer = require("./rest_handlers/financialUnitsComposer");
+
 const PORT = 8080;
 const DATA = {};
 let server, countFilesToLoad;

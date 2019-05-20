@@ -2,7 +2,7 @@ let base = "USD";
 let convertTo = "EUR";
 
 export const headers = {
-  financialUnitsPoisions: [
+  financialUnitsPositions: [
     {
       fieldName: "name",
       caption: "Financial Name"
@@ -24,7 +24,7 @@ export const headers = {
       caption: `Calculated Value in(${base})`
     }
   ],
-  financialUnitsPoisionsSums: [
+  financialUnitsPositionsSums: [
     {
       fieldName: "name",
       caption: "FU Name"

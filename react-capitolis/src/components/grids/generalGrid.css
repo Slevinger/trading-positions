@@ -54,10 +54,11 @@
 
 .grid-title {
   color: white;
+  transition: opacity 500ms;
   opacity: 0;
 }
 
-.grid-title:hover {
+.show {
   color: white;
   opacity: 1;
 }
