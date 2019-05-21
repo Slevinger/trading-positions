@@ -12,19 +12,18 @@ export default class GeneralGrid extends React.PureComponent {
 
   toggleSelectAll(e) {
     if (e.target.closest(".grid-header")) {
+      const selectedRows = {};
       if (
-        Object.keys(this.state.selectedRows).length >=
+        Object.keys(this.state.selectedRows).length <
         this.props.rows.length / 2
       ) {
-        this.setState({ selectedRows: {} });
-      } else {
-        this.setState({
-          selectedRows: this.props.rows.reduce((acc, row) => {
-            acc[row.id] = row;
-            return acc;
-          }, {})
-        });
+        this.props.rows.reduce((acc, row) => {
+          acc[row.id] = row;
+          return acc;
+        }, selectedRows);
       }
+      this.props.filterSelected(selectedRows);
+      this.setState({ selectedRows });
     }
   }
 
