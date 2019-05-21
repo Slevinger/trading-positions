@@ -19,6 +19,7 @@ export default class MainComponent extends React.PureComponent {
     this.state = {
       rows: [],
       totals: [],
+      filterdTotals: [],
       state: states.INITIATING
     };
   }
@@ -61,6 +62,38 @@ export default class MainComponent extends React.PureComponent {
     this.setState({ ...this.state, state: states.ONGOING, rows, totals });
   }
 
+  filterSelected(selected) {
+    const totalSeletedPerUnit = Object.keys(selected).reduce((acc, key) => {
+      acc[selected[key].name] = acc[selected[key].name] || 0;
+      acc[selected[key].name] += selected[key].value;
+      return acc;
+    }, {});
+    const newTotals = this.state.totals.map(totalRow =>
+      Object.assign({}, totalRow)
+    );
+    Object.keys(totalSeletedPerUnit).forEach(unitName => {
+      const row = newTotals.find(totalRow => totalRow.name === unitName);
+      if (row) {
+        row.value = totalSeletedPerUnit[unitName];
+      }
+    });
+
+    // Object.keys(selected).forEach(id => {
+    //   const selectedRow = selected[id];
+    //   totalsAcc[id] = totalsAcc[id] || 0;
+    //   totalsAcc[id] += selected[id].value;
+    // });
+    this.setState({ ...this.state, filterdTotals: newTotals });
+    return newTotals;
+  }
+
+  getTotals() {
+    if (Object.keys(this.state.filterdTotals) == 0) {
+      return this.state.totals;
+    }
+    return this.state.filterdTotals;
+  }
+
   renderSpinner() {
     return <div className="spinner" />;
   }
@@ -75,6 +108,7 @@ export default class MainComponent extends React.PureComponent {
             key="financialUnitsPositions"
             title={gridConfigs.financialUnitsPositions.title}
             headerRow={getHeadersAsRow("financialUnitsPositions")}
+            filterSelected={this.filterSelected.bind(this)}
             headers={gridConfigs.financialUnitsPositions.headers}
             rows={this.state.rows}
           />
@@ -83,7 +117,7 @@ export default class MainComponent extends React.PureComponent {
             title={gridConfigs.financialUnitsPositionsSums.title}
             headerRow={getHeadersAsRow("financialUnitsPositionsSums")}
             headers={gridConfigs.financialUnitsPositionsSums.headers}
-            rows={this.state.totals}
+            rows={this.getTotals()}
           />
         </div>
       );
